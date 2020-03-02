@@ -225,6 +225,12 @@ export class Fiber {
               `Cannot attach '${component.constructor.name}' to target node (not same tag name)`
             );
           }
+          // In self mode, we *know* we are to take possesion of the target
+          // Hence we manually create the corresponding VNode
+          // in particular to set the VNode.data.key attribute to match the target's
+          const selfVnode = h(fiber.vnode!.sel, fiber.vnode!.data || {});
+          selfVnode.elm = target;
+          target = selfVnode;
         } else {
           target = component.__owl__.vnode || document.createElement(fiber.vnode!.sel!);
         }

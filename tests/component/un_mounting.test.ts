@@ -36,6 +36,7 @@ describe("mount targets", () => {
     const app = new App();
     await app.mount(div, { position: "self" });
     expect(fixture.innerHTML).toBe("<div>app</div>");
+    expect(div).toBe(app.el);
   });
 
   test("cannot attach a component to an existing node (if not same tagname)", async () => {
